@@ -28,13 +28,15 @@ const Wrapper = styled.div`
   background-color: ${COLORS.gray[900]};
   display: flex;
   align-items: center;
-  padding: 12px 32px;
   gap: 24px;
+  padding-left: 32px;
+  padding-right: 32px;
+  height: 40px;
 `;
 
 const MarketingMessage = styled.span`
   color: ${COLORS.white};
-  flex: 1;
+  margin-right: auto;
 `;
 
 const HelpLink = styled.a`
