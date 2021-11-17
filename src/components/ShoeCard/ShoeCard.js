@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import { COLORS, WEIGHTS } from '../../constants';
 import { formatPrice, pluralize, isNewShoe } from '../../utils';
 import Spacer from '../Spacer';
+import { ShoeLabel } from '../ShoeLabel'
 
 const ShoeCard = ({
   slug,
@@ -31,6 +32,8 @@ const ShoeCard = ({
       ? 'new-release'
       : 'default'
 
+  const hasSalePrice = Boolean(salePrice)
+
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
@@ -40,11 +43,13 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price hasSalePrice={hasSalePrice}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {hasSalePrice ? <SalePrice>{formatPrice(salePrice)}</SalePrice> : null}
         </Row>
+        {variant !== 'default' ? <ShoeLabel variant={variant} /> : null}
       </Wrapper>
     </Link>
   );
@@ -58,6 +63,7 @@ const Link = styled.a`
 const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const ImageWrapper = styled.div`
@@ -79,7 +85,10 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  text-decoration: ${p => p.hasSalePrice ? 'line-through' : 'none'};
+  color: ${p => p.hasSalePrice ? COLORS.gray[700] : COLORS.gray[900]};
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};

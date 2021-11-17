@@ -1,0 +1,1 @@
+export { ShoeLabel } from './ShoeLabel'
